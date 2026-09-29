@@ -1,0 +1,13 @@
+.external-style {
+    color: navy;
+    font-size: 22px;
+    padding: 10px;
+    border: 2px solid navy;
+    background-color: lightblue;
+}
+
+h1 {
+    color: purple;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
