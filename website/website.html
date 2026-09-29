@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department of Computer Applications | University Campus</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+    --primary-color: #0d3b66;
+    --secondary-color: #f4d35e;
+    --dark-neutral: #333333;
+    --light-neutral: #f8f9fa;
+    --white: #ffffff;
+    --accent-color: #ee964b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    color: var(--dark-neutral);
+    background-color: var(--white);
+    line-height: 1.6;
+}
+
+.container {
+    width: 85%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+.top-bar {
+    background-color: var(--dark-neutral);
+    color: var(--light-neutral);
+    padding: 8px 0;
+    font-size: 0.85rem;
+    animation: fadeInDown 0.6s ease-out;
+}
+.top-bar .container { display: flex; justify-content: space-between; }
+
+header {
+    background: var(--white);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    animation: fadeInDown 0.6s ease-out 0.1s both;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--primary-color);
+    animation: slideInLeft 0.6s ease-out 0.2s both;
+}
+.logo i { font-size: 2.5rem; transition: transform 0.3s ease; }
+.logo i:hover { transform: rotate(10deg) scale(1.1); }
+.logo h1 { font-size: 1.4rem; font-weight: 700; }
+
+nav { animation: slideInRight 0.6s ease-out 0.2s both; }
+nav ul { display: flex; list-style: none; gap: 20px; }
+nav ul li a {
+    text-decoration: none;
+    color: var(--dark-neutral);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 5px 10px;
+    position: relative;
+}
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+nav ul li a:hover::after, nav ul li a.active::after { width: 100%; }
+nav ul li a:hover, nav ul li a.active { color: var(--primary-color); }
+
+.hero {
+    position: relative;
+    background: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    animation: fadeIn 0.8s ease-out;
+}
+.hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 59, 102, 0.85); }
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+.hero-content h2 { font-size: 2.8rem; margin-bottom: 15px; }
+.hero-content p { font-size: 1.1rem; margin-bottom: 25px; }
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.1);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+.btn:hover::before { left: 100%; }
+.btn-primary { background: var(--secondary-color); color: var(--primary-color); animation: fadeInUp 0.8s ease-out 0.4s both; }
+.btn-primary:hover { background: #e0c050; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+.btn-secondary { border: 2px solid var(--white); color: var(--white); animation: fadeInUp 0.8s ease-out 0.5s both; }
+.btn-secondary:hover { background: var(--white); color: var(--primary-color); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+
+.stats {
+    background-color: var(--light-neutral);
+    padding: 30px 0;
+    border-bottom: 1px solid #e9ecef;
+    animation: fadeInUp 0.8s ease-out;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    text-align: center;
+}
+.stat-card { animation: scaleIn 0.6s ease-out; transition: transform 0.3s ease; padding: 20px; }
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }
+.stat-card:hover { transform: scale(1.05); }
+.stat-card h3 { font-size: 2.2rem; color: var(--primary-color); transition: color 0.3s ease; }
+.stat-card:hover h3 { color: var(--accent-color); }
+
+.main-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    padding: 60px 0;
+}
+.welcome-text { animation: slideInLeft 0.8s ease-out; }
+.welcome-text h2 { transition: color 0.3s ease; }
+.welcome-text:hover h2 { color: var(--primary-color); }
+
+.heading-line {
+    width: 60px;
+    height: 4px;
+    background: var(--accent-color);
+    border: none;
+    margin: 10px 0 20px 0;
+    animation: slideInLeft 0.8s ease-out 0.2s both;
+    transition: width 0.3s ease;
+}
+.welcome-text:hover .heading-line { width: 100px; }
+
+.features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 30px;
+}
+.feature-item { animation: fadeInUp 0.8s ease-out; transition: transform 0.3s ease; padding: 20px; }
+.feature-item:nth-child(1) { animation-delay: 0.3s; }
+.feature-item:nth-child(2) { animation-delay: 0.4s; }
+.feature-item:hover { transform: translateY(-5px); }
+.feature-item i { font-size: 2rem; color: var(--primary-color); margin-bottom: 10px; transition: transform 0.3s ease; }
+.feature-item:hover i { transform: rotate(10deg) scale(1.1); }
+
+.programs-section { padding: 60px 0; background-color: var(--light-neutral); }
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+.program-card {
+    background: var(--white);
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 30px;
+    animation: scaleIn 0.6s ease-out;
+    transition: all 0.3s ease;
+}
+.program-card:nth-child(1) { animation-delay: 0.1s; }
+.program-card:nth-child(2) { animation-delay: 0.2s; }
+.program-card:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+}
+.program-card h3 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.program-card h3 i { font-size: 2rem; color: var(--accent-color); }
+.program-info { margin: 15px 0; padding: 10px 0; border-bottom: 1px solid #e9ecef; }
+.program-info strong { color: var(--primary-color); }
+
+.notice-board {
+    background: var(--light-neutral);
+    padding: 25px;
+    border-radius: 6px;
+    border-top: 4px solid var(--primary-color);
+    height: fit-content;
+    animation: slideInRight 0.8s ease-out;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease;
+}
+.notice-board:hover { box-shadow: 0 8px 12px rgba(0,0,0,0.1); }
+.notice-board h3 { margin-bottom: 15px; font-size: 1.2rem; }
+.notice-list { display: flex; flex-direction: column; gap: 15px; }
+.notice-item {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 10px;
+    animation: fadeInUp 0.6s ease-out;
+    transition: transform 0.3s ease;
+}
+.notice-item:nth-child(1) { animation-delay: 0.1s; }
+.notice-item:nth-child(2) { animation-delay: 0.2s; }
+.notice-item:nth-child(3) { animation-delay: 0.3s; }
+.notice-item:hover { transform: translateX(5px); }
+.notice-item .date { display: block; font-size: 0.8rem; color: var(--accent-color); font-weight: bold; }
+.notice-item a { text-decoration: none; color: #495057; font-size: 0.95rem; transition: color 0.3s ease; }
+.notice-item a:hover { color: var(--primary-color); }
+.view-all { display: block; margin-top: 15px; text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; transition: all 0.3s ease; position: relative; padding-left: 0; }
+.view-all::after { content: ' →'; transition: transform 0.3s ease; }
+.view-all:hover::after { transform: translateX(5px); }
+
+.gallery-section { padding: 60px 0; background-color: var(--white); border-top: 1px solid #edf2f7; }
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    animation: scaleIn 0.6s ease-out;
+    transition: transform 0.3s ease;
+    height: 300px;
+}
+.gallery-item:nth-child(1) { animation-delay: 0.1s; }
+.gallery-item:nth-child(2) { animation-delay: 0.2s; }
+.gallery-item:nth-child(3) { animation-delay: 0.3s; }
+.gallery-item:nth-child(4) { animation-delay: 0.4s; }
+.gallery-item:nth-child(5) { animation-delay: 0.5s; }
+.gallery-item:nth-child(6) { animation-delay: 0.6s; }
+.gallery-item:hover { transform: scale(1.05); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+.gallery-item:hover img { transform: scale(1.1); }
+.gallery-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(13, 59, 102, 0.7);
+    display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-info { text-align: center; color: var(--white); animation: fadeInUp 0.6s ease-out; }
+.gallery-info h4 { font-size: 1.3rem; margin-bottom: 10px; }
+.gallery-info p { font-size: 0.95rem; }
+
+.mastec-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0a2844 100%);
+    color: var(--white);
+}
+.mastec-container { max-width: 1000px; margin: 0 auto; }
+.mastec-header { text-align: center; margin-bottom: 50px; animation: fadeInUp 0.8s ease-out; }
+.mastec-header h2 { font-size: 2.5rem; margin-bottom: 15px; color: var(--secondary-color); }
+.mastec-header p { font-size: 1.1rem; color: #e0e0e0; line-height: 1.8; }
+.mastec-content { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.mastec-info { animation: slideInLeft 0.8s ease-out; }
+.mastec-info h3 { font-size: 1.5rem; margin-bottom: 20px; color: var(--secondary-color); }
+.mastec-info ul { list-style: none; margin-bottom: 25px; }
+.mastec-info ul li {
+    padding: 12px 0; padding-left: 30px; position: relative; font-size: 1rem; transition: transform 0.3s ease;
+}
+.mastec-info ul li:hover { transform: translateX(10px); }
+.mastec-info ul li::before {
+    content: '✓'; position: absolute; left: 0; color: var(--secondary-color); font-weight: bold; font-size: 1.2rem;
+}
+.mastec-benefits {
+    background: rgba(255,255,255,0.1);
+    padding: 25px;
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary-color);
+    animation: slideInRight 0.8s ease-out;
+}
+.mastec-benefits h3 { font-size: 1.3rem; margin-bottom: 20px; color: var(--secondary-color); }
+.benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.benefit-item { display: flex; gap: 12px; align-items: flex-start; }
+.benefit-item i { font-size: 1.5rem; color: var(--secondary-color); flex-shrink: 0; }
+.benefit-item span { font-size: 0.95rem; line-height: 1.5; }
+.mastec-button {
+    display: inline-block; margin-top: 25px; padding: 12px 30px; background: var(--secondary-color); color: var(--primary-color); text-decoration: none; border-radius: 4px; font-weight: 600; transition: all 0.3s ease;
+}
+.mastec-button:hover { background: #e0c050; transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.2); }
+
+.faculty-section { padding: 60px 0; background-color: #fcfcfc; border-top: 1px solid #edf2f7; animation: fadeIn 0.8s ease-out; }
+.section-title { margin-bottom: 40px; text-align: left; animation: fadeInUp 0.8s ease-out; }
+.section-title h2 { font-size: 2rem; color: var(--primary-color); }
+
+.hod-spotlight {
+    background: var(--light-neutral);
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    border-left: 5px solid var(--accent-color);
+    animation: slideInLeft 0.8s ease-out;
+    transition: all 0.3s ease;
+}
+.hod-spotlight:nth-child(2) { animation-delay: 0.1s; }
+.hod-spotlight:nth-child(3) { animation-delay: 0.2s; }
+.hod-spotlight:nth-child(4) { animation-delay: 0.3s; }
+.hod-spotlight:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.08); transform: translateY(-3px); }
+.hod-card { display: flex; gap: 30px; align-items: center; }
+.hod-img-container img {
+    width: 160px; height: 160px; object-fit: cover; border-radius: 50%;
+    border: 4px solid var(--white); box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.3s ease; animation: scaleIn 0.8s ease-out;
+}
+.hod-spotlight:hover .hod-img-container img { transform: scale(1.05) rotate(3deg); }
+.badge { background: var(--accent-color); color: var(--white); padding: 4px 10px; font-size: 0.75rem; font-weight: bold; border-radius: 4px; text-transform: uppercase; animation: fadeInUp 0.8s ease-out; display: inline-block; }
+.hod-info h3 { margin: 8px 0 2px 0; font-size: 1.5rem; color: var(--primary-color); animation: fadeInUp 0.8s ease-out 0.1s both; }
+.designation { font-weight: 600; color: #555; margin-bottom: 12px; font-size: 0.95rem; animation: fadeInUp 0.8s ease-out 0.15s both; }
+.bio { font-size: 0.95rem; margin-bottom: 15px; color: #666; animation: fadeInUp 0.8s ease-out 0.2s both; }
+.faculty-meta { display: flex; gap: 20px; font-size: 0.9rem; margin-bottom: 15px; color: #444; animation: fadeInUp 0.8s ease-out 0.25s both; }
+.faculty-meta i { color: var(--primary-color); transition: transform 0.3s ease; }
+.hod-spotlight:hover .faculty-meta i { transform: rotate(10deg); }
+.faculty-social { display: flex; gap: 15px; animation: fadeInUp 0.8s ease-out 0.3s both; }
+.faculty-social a { color: var(--primary-color); font-size: 1.2rem; transition: all 0.3s ease; display: inline-block; }
+.faculty-social a:hover { transform: translateY(-3px) scale(1.2); color: var(--accent-color); }
+
+footer {
+    background: var(--dark-neutral);
+    color: var(--light-neutral);
+    padding: 60px 0 20px;
+    margin-top: 80px;
+    border-top: 4px solid var(--accent-color);
+    animation: fadeInUp 0.8s ease-out;
+}
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+.footer-section h3 { color: var(--secondary-color); margin-bottom: 20px; font-size: 1.2rem; }
+.footer-section { animation: fadeInUp 0.8s ease-out; }
+.footer-section:nth-child(1) { animation-delay: 0.1s; }
+.footer-section:nth-child(2) { animation-delay: 0.2s; }
+.footer-section:nth-child(3) { animation-delay: 0.3s; }
+.footer-section:nth-child(4) { animation-delay: 0.4s; }
+.footer-section ul { list-style: none; }
+.footer-section ul li { margin-bottom: 12px; transition: transform 0.3s ease; }
+.footer-section ul li:hover { transform: translateX(5px); }
+.footer-section a { color: var(--light-neutral); text-decoration: none; transition: color 0.3s ease; }
+.footer-section a:hover { color: var(--secondary-color); }
+.contact-info { display: flex; flex-direction: column; gap: 15px; }
+.contact-item { display: flex; gap: 12px; align-items: flex-start; transition: transform 0.3s ease; }
+.contact-item:hover { transform: translateX(5px); }
+.contact-item i { color: var(--secondary-color); font-size: 1.2rem; min-width: 20px; margin-top: 3px; }
+.social-links { display: flex; gap: 15px; margin-top: 20px; }
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--accent-color);
+    color: var(--white);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+.social-links a:hover { background: var(--secondary-color); transform: translateY(-3px) scale(1.1); }
+.footer-bottom { border-top: 1px solid #555; padding-top: 30px; text-align: center; animation: fadeInUp 0.8s ease-out 0.5s both; }
+.footer-bottom p { margin-bottom: 10px; font-size: 0.9rem; }
+.footer-bottom a { color: var(--secondary-color); text-decoration: none; transition: color 0.3s ease; }
+.footer-bottom a:hover { text-decoration: underline; }
+
+@media (max-width: 768px) {
+    nav ul { gap: 10px; }
+    nav ul li a { font-size: 0.9rem; }
+    .hero-content h2 { font-size: 1.8rem; }
+    .main-content { grid-template-columns: 1fr; }
+    .footer-content { grid-template-columns: 1fr; }
+    .mastec-content { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="container">
+            <span><i class="fas fa-envelope"></i> admissions@university.edu</span>
+            <span><i class="fas fa-phone"></i> +91 98765 43210</span>
+        </div>
+    </div>
+
+    <header>
+        <div class="container navbar">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <div>
+                    <h1>Department of Computer Applications</h1>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#programs">Programs</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#mastec">MASTEC</a></li>
+                    <li><a href="#faculty">Faculty</a></li>
+                    <li><a href="#announcements">Announcements</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="home">
+        <section class="hero">
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <h2>Building Next-Gen Tech Leaders</h2>
+                <p>Empowering students with advanced computing skills, research driven mindsets, and industrial expertise to excel in the global IT landscape.</p>
+                <div class="hero-buttons">
+                    <a href="#programs" class="btn btn-primary">Explore Programs</a>
+                    <a href="#faculty" class="btn btn-secondary">Meet Our Faculty</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="stats">
+        <div class="container stats-grid">
+            <div class="stat-card">
+                <h3>95%+</h3>
+                <p>Placement Record</p>
+            </div>
+            <div class="stat-card">
+                <h3>20+</h3>
+                <p>Core Faculty & Researchers</p>
+            </div>
+            <div class="stat-card">
+                <h3>15 LPA</h3>
+                <p>Highest Package</p>
+            </div>
+            <div class="stat-card">
+                <h3>500+</h3>
+                <p>Alumni Worldwide</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="programs-section" id="programs">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Academic Programs</h2>
+                <hr class="heading-line">
+                <p>World-class education in Computer Applications with industry-relevant curriculum.</p>
+            </div>
+
+            <div class="programs-grid">
+                <div class="program-card">
+                    <h3><i class="fas fa-book-open"></i> Master of Computer Applications</h3>
+                    <p>An intensive postgraduate program designed for students seeking advanced knowledge in computer applications and software development.</p>
+                    <div class="program-info"><strong>Duration:</strong> 2 Years (4 Semesters)</div>
+                    <div class="program-info"><strong>Eligibility:</strong> Bachelor's degree in any discipline</div>
+                    <div class="program-info"><strong>Focus Areas:</strong> Software Engineering, Cloud Computing, AI/ML, Database Systems, Web Development</div>
+                    <div class="program-info"><strong>Career Path:</strong> Software Developer, System Analyst, IT Consultant, Data Scientist</div>
+                    <p style="margin-top: 20px; color: #666; font-size: 0.95rem;">Advanced labs equipped with modern cloud server environments and AI modules. Regular hackathons, live industrial projects, and continuous internship programs.</p>
+                </div>
+
+                <div class="program-card">
+                    <h3><i class="fas fa-laptop"></i> Bachelor of Computer Applications</h3>
+                    <p>A comprehensive undergraduate program that combines theoretical knowledge with practical application of computer science.</p>
+                    <div class="program-info"><strong>Duration:</strong> 3 Years (6 Semesters)</div>
+                    <div class="program-info"><strong>Eligibility:</strong> 10+2 with Mathematics/Computer Science</div>
+                    <div class="program-info"><strong>Focus Areas:</strong> Programming, Data Structures, Web Technologies, Mobile Apps, Network Security</div>
+                    <div class="program-info"><strong>Career Path:</strong> Junior Developer, QA Engineer, IT Support, Web Developer, System Administrator</div>
+                    <p style="margin-top: 20px; color: #666; font-size: 0.95rem;">Foundation in computer fundamentals with hands-on experience. Industry partnerships provide real-world project experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Campus Gallery</h2>
+                <hr class="heading-line">
+                <p>Explore the vibrant life and state-of-the-art facilities in our department.</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="lab.jpg" alt="Lab Facilities">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h4>State-of-the-Art Labs</h4>
+                            <p>Modern computing infrastructure</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="class.jpg" alt="Classroom">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h4>Interactive Classes</h4>
+                            <p>Engaging learning environment</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="f.jpg" alt="Student Activities">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h4>Student Activities</h4>
+                            <p>Workshops & hackathons</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="a.jpg" alt="Seminar Hall">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h4>Seminar Hall</h4>
+                            <p>Guest lectures and seminars</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="u.jpg" alt="Library">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h4>Digital Library</h4>
+                            <p>Extensive learning resources</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="ppd.jpg" alt="Collaboration">
+                    <div class="gallery-overlay">
+                        <div class="gallery-info">
+                            <h4>Collaboration Spaces</h4>
+                            <p>Project development areas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mastec-section" id="mastec">
+        <div class="container mastec-container">
+            <div class="mastec-header">
+                <h2>MASTEC - Tech Association</h2>
+                <p>Empowering students through collaborative learning, technical excellence, and industry engagement</p>
+            </div>
+
+            <div class="mastec-content">
+                <div class="mastec-info">
+                    <h3>About MASTEC</h3>
+                    <p>MASTEC is a student-driven association dedicated to fostering innovation, leadership, and technical expertise among MCA and BCA students.</p>
+                    <h3 style="margin-top: 30px;">Our Key Initiatives</h3>
+                    <ul>
+                        <li>Technical workshops and coding bootcamps</li>
+                        <li>Regular hackathons and coding competitions</li>
+                        <li>Industry expert seminars and guest lectures</li>
+                        <li>Startup incubation and entrepreneurship support</li>
+                        <li>Mentorship programs with alumni</li>
+                        <li>Community service and outreach programs</li>
+                    </ul>
+                    <a href="#" class="mastec-button"><i class="fas fa-arrow-right"></i> Learn More</a>
+                </div>
+
+                <div class="mastec-benefits">
+                    <h3>Member Benefits</h3>
+                    <div class="benefits-grid">
+                        <div class="benefit-item"><i class="fas fa-graduation-cap"></i><span>Advanced skill development</span></div>
+                        <div class="benefit-item"><i class="fas fa-network-wired"></i><span>Networking opportunities</span></div>
+                        <div class="benefit-item"><i class="fas fa-trophy"></i><span>Competition participation</span></div>
+                        <div class="benefit-item"><i class="fas fa-briefcase"></i><span>Career placement support</span></div>
+                        <div class="benefit-item"><i class="fas fa-lightbulb"></i><span>Innovation projects</span></div>
+                        <div class="benefit-item"><i class="fas fa-users"></i><span>Peer mentoring</span></div>
+                        <div class="benefit-item"><i class="fas fa-certificate"></i><span>Certification programs</span></div>
+                        <div class="benefit-item"><i class="fas fa-handshake"></i><span>Industry partnerships</span></div>
+                    </div>
+
+                    <h3 style="margin-top: 25px;">Quick Facts</h3>
+                    <div style="font-size: 0.95rem; line-height: 2;">
+                        <p><strong>Members:</strong> 400+ Active Students</p>
+                        <p><strong>Established:</strong> 2019</p>
+                        <p><strong>Events/Year:</strong> 15+ Technical Events</p>
+                        <p><strong>Success Rate:</strong> 90% Member Placement</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="main-content container" id="welcome">
+        <div class="welcome-text">
+            <h2>Welcome to Department of Computer Applications</h2>
+            <hr class="heading-line">
+            <p>Our department offers world-class education in Master of Computer Applications (MCA) and Bachelor of Computer Applications (BCA) programs. We bridge the gap between academic theory and industry realities with state-of-the-art laboratory infrastructure and a highly experienced faculty.</p>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-laptop-code"></i>
+                    <h4>Advanced Labs</h4>
+                    <p>Equipped with modern high-performance cloud server environments and AI/ML modules.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-handshake"></i>
+                    <h4>Industry Linkages</h4>
+                    <p>Regular hackathons, live industrial projects, and continuous internship programs.</p>
+                </div>
+            </div>
+        </div>
+
+        <aside class="notice-board" id="announcements">
+            <h3><i class="fas fa-bell"></i> Announcements</h3>
+            <div class="notice-list">
+                <div class="notice-item">
+                    <span class="date">Sept 25, 2024</span>
+                    <a href="#">MCA Admissions 2024 - Online Applications Open</a>
+                </div>
+                <div class="notice-item">
+                    <span class="date">Sept 20, 2024</span>
+                    <a href="#">National Coding Championship - Registration Extended</a>
+                </div>
+                <div class="notice-item">
+                    <span class="date">Sept 15, 2024</span>
+                    <a href="#">Guest Lecture: AI & Machine Learning in Industry</a>
+                </div>
+            </div>
+            <a href="#" class="view-all">View All Announcements</a>
+        </aside>
+    </section>
+
+    <section class="faculty-section" id="faculty">
+        <div class="container">
+            <div class="section-title">
+                <h2>Meet Our Faculty</h2>
+                <hr class="heading-line">
+                <p>Experienced educators and research innovators dedicated to student success</p>
+            </div>
+
+            <div class="hod-spotlight">
+                <div class="hod-card">
+                    <div class="hod-img-container">
+                        <img src="hod-mca.jpg" alt="Head of Department">
+                    </div>
+                    <div class="hod-info">
+                        <span class="badge">Head of Department</span>
+                        <h3>Sreeja K</h3>
+                        <p class="designation">Professor & HOD</p>
+                        <p class="bio">Prof. Sreeja has over 20 years of academic and research experience. Her areas of specialization include Big Data Analysis, Machine Learning, and Predictive Modeling.</p>
+                        <div class="faculty-meta">
+                            <span><i class="fas fa-envelope"></i> hod@university.edu</span>
+                            <span><i class="fas fa-book"></i> Publications: 45+</span>
+                        </div>
+                        <div class="faculty-social">
+                            <a href="#" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                            <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hod-spotlight">
+                <div class="hod-card">
+                    <div class="hod-img-container">
+                        <img src="rs.png" alt="Professor">
+                    </div>
+                    <div class="hod-info">
+                        <span class="badge">Professor</span>
+                        <h3>R Sujitha</h3>
+                        <p class="designation">Professor</p>
+                        <p class="bio">Prof.Sujitha R has over 20 years of academic and research experience. Her areas of specialization include Web Technologies and Network Security.</p>
+                        <div class="faculty-meta">
+                            <span><i class="fas fa-envelope"></i> sujitha@university.edu</span>
+                            <span><i class="fas fa-book"></i> Publications: 42+</span>
+                        </div>
+                        <div class="faculty-social">
+                            <a href="#" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                            <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hod-spotlight">
+                <div class="hod-card">
+                    <div class="hod-img-container">
+                        <img src="rk.jpg" alt="Professor">
+                    </div>
+                    <div class="hod-info">
+                        <span class="badge">Professor</span>
+                        <h3>Rekha</h3>
+                        <p class="designation">Professor</p>
+                        <p class="bio">Prof Rekha has over 20 years of academic and research experience. Her areas of specialization include Web Technologies and Network Security.</p>
+                        <div class="faculty-meta">
+                            <span><i class="fas fa-envelope"></i> sujitha@university.edu</span>
+                            <span><i class="fas fa-book"></i> Publications: 42+</span>
+                        </div>
+                        <div class="faculty-social">
+                            <a href="#" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                            <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hod-spotlight">
+                <div class="hod-card">
+                    <div class="hod-img-container">
+                        <img src="Jeeja.jpg" alt="Professor">
+                    </div>
+                    <div class="hod-info">
+                        <span class="badge">Professor</span>
+                        <h3>Jeeja G S</h3>
+                        <p class="designation">Professor</p>
+                        <p class="bio">Prof. Jeeja has over 20 years of academic and research experience. Her areas of specialization include Web Technologies and Network Security.</p>
+                        <div class="faculty-meta">
+                            <span><i class="fas fa-envelope"></i> sujitha@university.edu</span>
+                            <span><i class="fas fa-book"></i> Publications: 42+</span>
+                        </div>
+                        <div class="faculty-social">
+                            <a href="#" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                            <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
+
+
+
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-building"></i> About Us</h3>
+                    <p>The Department of Computer Applications offers comprehensive programs in BCA and MCA, combining academic excellence with industry exposure to prepare students for successful IT careers.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3><i class="fas fa-link"></i> Quick Links</h3>
+                    <ul>
+                        <li><a href="#programs">Academic Programs</a></li>
+                        <li><a href="#faculty">Faculty Directory</a></li>
+                        <li><a href="#gallery">Campus Gallery</a></li>
+                        <li><a href="#mastec">MASTEC Association</a></li>
+                        <li><a href="#">Admissions</a></li>
+                        <li><a href="#">Placements</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3><i class="fas fa-info-circle"></i> Resources</h3>
+                    <ul>
+                        <li><a href="#">Student Handbook</a></li>
+                        <li><a href="#">Library Portal</a></li>
+                        <li><a href="#">Student Portal</a></li>
+                        <li><a href="#">Events & News</a></li>
+                        <li><a href="#">Alumni Network</a></li>
+                        <li><a href="#">Research Hub</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3><i class="fas fa-phone-alt"></i> Get in Touch</h3>
+                    <div class="contact-info">
+                        <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>University Campus, City<br>State 000000</span></div>
+                        <div class="contact-item"><i class="fas fa-phone"></i><span>+91 98765 43210<br>+91 98765 43211</span></div>
+                        <div class="contact-item"><i class="fas fa-envelope"></i><span>admissions@university.edu<br>info@university.edu</span></div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Department of Computer Applications. All rights reserved.</p>
+                <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Sitemap</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
