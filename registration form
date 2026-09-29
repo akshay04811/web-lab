@@ -1,0 +1,37 @@
+<html>
+<head>
+<title> REGISTRATION FORM </title>
+<style>
+body{
+font-size:25px;
+background-color:white;
+
+}
+.button{ display:grid;
+place-items:center;
+height:60px;
+width:10px;
+}
+</style>
+<body>
+<h1> REGISTER</h1>
+<label>Name </label><required>
+<input type "char">
+<br></br>
+<label>DOB </label><required>
+<input type "data">
+<br></br>
+<label>Email </label><required>
+<input type "char">
+<br></br>
+<label>Password </label><required>
+<input type "int">
+<br></br>
+<label>Confirm Password</label><required>
+<input type "int">
+<br></br>
+<div class="button">
+<button type="submit"> submit</button>
+</div>
+</body>
+</html>
